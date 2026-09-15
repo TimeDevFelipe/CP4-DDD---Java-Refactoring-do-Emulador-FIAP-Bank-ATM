@@ -19,11 +19,11 @@ O banco é criado automaticamente em `data/fiap-bank.db` quando a aplicação é
 
 ![Java 21](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=java)
 ![Maven](https://img.shields.io/badge/Maven-3.x-blue?style=for-the-badge&logo=apache-maven)
-![FlatLaf](https://img.shields.io/badge/UI-FlatLaf_Dark-darkgreen?style=for-the-badge)
-![Architecture](https://img.shields.io/badge/Architecture-Domain--Driven_Design_(DDD)-purple?style=for-the-badge)
+![Interface](https://img.shields.io/badge/Interface-Java%20Swing-darkgreen?style=for-the-badge)
+![Arquitetura](https://img.shields.io/badge/Arquitetura-DDD-purple?style=for-the-badge)
 
 > **FIAP - Engenharia de Software (2026)**  
-> **Checkpoint 4 (CP4)** — Aplicação de Emulação de Caixa Eletrônico (ATM) construída em **Java 21**, **Swing (FlatLaf)** e orientada aos princípios de **Domain-Driven Design (DDD)**.
+> **Checkpoint 4 (CP4)** — Aplicação de emulação de caixa eletrônico construída em **Java 21**, **Swing (FlatLaf)** e organizada com princípios de **Desenvolvimento Orientado ao Domínio (DDD)**.
 
 ---
 
@@ -31,7 +31,9 @@ O banco é criado automaticamente em `data/fiap-bank.db` quando a aplicação é
 
 O **FIAP Bank ATM** é um emulador interativo de Caixa Eletrônico de alta fidelidade visual e comportamental. Desenvolvido para simular a experiência real de operação de um terminal bancário autoatendimento, o sistema oferece desde a validação de segurança de cartões/PIN até a dispensação simulada de cédulas e impressão de extrato térmico em popup.
 
-A aplicação foi projetada com arquitetura limpa em camadas baseada em **DDD (Domain-Driven Design)**, garantindo desacoplamento entre regras de negócio, persistência de dados e a camada de apresentação visual.
+A aplicação foi projetada com arquitetura limpa em camadas baseada em **DDD (Desenvolvimento Orientado ao Domínio)**, garantindo separação entre regras de negócio, persistência de dados e apresentação visual.
+
+Neste CP4, a aplicação foi dividida em quatro módulos Maven. A tela Swing foi mantida e passou a conversar com a aplicação usando DTOs imutáveis. Os dados são persistidos em SQLite por JDBC.
 
 ---
 
@@ -97,7 +99,8 @@ com.fiap.bank.atm
 │
 ├── infrastructure                  # Camada de Infraestrutura (Persistência e Recursos Externos)
 │   └── persistence
-│       └── InMemoryAccountRepository.java # Implementação em memória com dados de teste (Seed)
+│       ├── AccountRepositoryJdbcImpl.java # Repositório JDBC com SQLite
+│       └── ConnectionFactory.java         # Fábrica de conexões
 │
 └── presentation                    # Camada de Apresentação (UI / Swing)
     ├── AtmFrame.java               # Janela principal do ATM com FlatLaf Dark Theme
@@ -144,9 +147,9 @@ A interface gráfica opera sobre uma **Máquina de Estados Finitos (FSM)** repre
 
 ---
 
-## 🔑 Contas Pré-cadastradas para Teste (Seed Data)
+## 🔑 Contas pré-cadastradas para teste
 
-Ao iniciar a aplicação, as seguintes contas de teste são carregadas automaticamente em memória pelo `InMemoryAccountRepository`:
+Ao iniciar a aplicação, as contas de teste são criadas automaticamente no banco SQLite, caso ainda não existam:
 
 | Número da Conta | PIN (Senha) | Saldo Inicial | Limite Diário Saque | Histórico Inicial |
 | :---: | :---: | :---: | :---: | :--- |
