@@ -1,5 +1,22 @@
 # FIAP Bank - Emulador de Caixa Eletrônico (ATM)
 
+## CP4 - Refatoração DDD
+
+Projeto refatorado por **Felipe Catto** para o Checkpoint 4 de DDD Java.
+
+O projeto agora usa quatro módulos Maven: `domain`, `application`, `infrastructure` e
+`presentation`. A tela Swing foi preservada e conversa com a aplicação por meio de
+DTOs imutáveis (`record`). A persistência principal usa SQLite via JDBC e
+`PreparedStatement`.
+
+Para compilar:
+
+```bash
+mvn clean package
+```
+
+O banco é criado automaticamente em `data/fiap-bank.db` quando a aplicação é iniciada.
+
 ![Java 21](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=java)
 ![Maven](https://img.shields.io/badge/Maven-3.x-blue?style=for-the-badge&logo=apache-maven)
 ![FlatLaf](https://img.shields.io/badge/UI-FlatLaf_Dark-darkgreen?style=for-the-badge)
